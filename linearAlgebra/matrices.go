@@ -35,7 +35,6 @@ func declareVector(s int, randomValue bool) []int {
 	return v
 }
 
-// scalar matrix
 func multiplyingMatrixWithVector(m [][]int, v []int) ([]int, error) {
 	sums := make([]int, len(v))
 	for i := range m {
@@ -70,7 +69,6 @@ func scalarMatrixFloat(m [][]int, s float32) ([][]float32, error) {
 }
 
 func inverseOfMatrix(m [][]int) ([][]float32, error) {
-	fmt.Println("Invertendo a matrix: ", m)
 	if len(m) == 2 && len(m[0]) == 2 {
 		var scalar float32
 		a, b, c, d := m[0][0], m[0][1], m[1][0], m[1][1]
@@ -81,15 +79,34 @@ func inverseOfMatrix(m [][]int) ([][]float32, error) {
 		}
 		nm := m
 		nm[0][0], nm[0][1], nm[1][0], nm[1][1] = d, -c, -b, a
-		fmt.Println("Escalar: ", scalar)
-		fmt.Println("Matrix: ", nm)
 		return scalarMatrixFloat(nm, scalar)
 	}
 	return make([][]float32, 0), nil
 }
+
+func gaussianEliminationInt(m [][]int, b []int) [][]int {
+	fmt.Println("Matriz antes da eliminação Gaussiana: ", m)
+	for k := 0; k < len(m)-1; k++ {
+		for i := k + 1; i < len(m); i++ {
+			pivot := m[k][k]
+			eliminated := m[i][k]
+			ratio := eliminated / pivot // transformar o PIVOT em 1 e os elementos abaixo dele em 0 :D
+			for j := k; j < len(m); j++ {
+				m[i][j] = m[i][j] - ratio*m[k][j]
+			}
+			b[i] = b[i] - ratio*b[k] // alterando as constantes para resolução do sistema de equação :D
+		}
+	}
+
+	fmt.Println("Matriz após eliminação Gaussiana: ", m)
+	return m
+}
+
 func main() {
 	matrix := declareMatrix(2, 2, true)
 	vector := declareVector(2, true)
+	A := [][]int{{1, 2}, {3, -1}}
+	b := []int{5, 2}
 
 	fmt.Println("Matrix")
 	fmt.Println(matrix)
@@ -103,4 +120,6 @@ func main() {
 	} else {
 		fmt.Println("O inverso da matrix é: ", inverse)
 	}
+
+	gaussianEliminationInt(A, b)
 }
