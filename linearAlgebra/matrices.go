@@ -138,14 +138,13 @@ func MultiplyingMatrixWithMatrix(A [][]int, B [][]int) ([][]int, error) {
 
 func main() {
 	matrix := DeclareMatrix(2, 2, true)
-	vector := DeclareVector(2, true)
+	// vector := DeclareVector(2, true)
 	A := [][]int{{1, 2}, {3, -1}}
 	b := []int{5, 2}
 
 	fmt.Println("Matrix")
 	fmt.Println(matrix)
 	fmt.Println("Vector")
-	fmt.Println(vector)
 	fmt.Println("Multiplying by a Vector at the same size ")
 	fmt.Println(len(matrix))
 	inverse, err := InverseOfMatrix(matrix)
