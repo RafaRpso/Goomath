@@ -7,7 +7,7 @@ import (
 
 const (
 	width  = 160
-	height = 15
+	height = 10
 )
 
 func Plot(x, y []float64) {
@@ -124,12 +124,34 @@ func CosF() ([]float64, []float64) {
 		x[i] = float64(i)
 	}
 	for i := 0; i < len(y); i++ {
-		y[i] = math.Tan(float64(i))
+		y[i] = math.Cos(float64(i))
 	}
 	return x, y
 }
-func main() {
-	x, y := CosF()
 
-	Plot(x, y)
+func DerivativePowerRule(s string) string {
+
+	formula := ""
+	for i := 0; i < len(s); i++ {
+		if i+1 < len(s) && i-1 > -1 {
+			if s[i] == '^' {
+				coefficient := s[i-1]
+				expoent := s[i+1]
+				intexpo := int(expoent) - 1
+				formula += string(expoent) + string(coefficient) + "^" + string(intexpo)
+			}
+			validation := s[i] == '+' || s[i] == '-' || s[i] == ' ' || s[i] == '/'
+			if validation {
+				formula += string(s[i])
+			}
+		}
+	}
+	return formula
+
+}
+
+func main() {
+	expression := "x^4"
+	res := DerivativePowerRule(expression)
+	fmt.Println("Derivative:" + res)
 }

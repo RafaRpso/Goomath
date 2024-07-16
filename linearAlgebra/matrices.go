@@ -30,8 +30,7 @@ func DeclareVector(s int, randomValue bool) []int {
 			rand := rand.Intn(4) + 1
 			v[i] = rand
 		}
-	}
-	return v
+
 }
 
 func MultiplyingMatrixWithVector(m [][]int, v []int) ([]int, error) {
@@ -87,6 +86,9 @@ func InverseOfMatrix(m [][]int) ([][]float32, error) {
 		nm := m
 		nm[0][0], nm[0][1], nm[1][0], nm[1][1] = d, -c, -b, a
 		return ScalarMatrixFloat(nm, scalar)
+	}
+	else if (len(m)>2 && len(m[0] > 2 )){
+		F
 	}
 	return make([][]float32, 0), nil
 }
